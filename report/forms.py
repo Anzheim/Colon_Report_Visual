@@ -3,7 +3,7 @@ from django import forms
 # from .models import ColonCaseReport
 
 class SearchForm(forms.Form):
-    patient_id = forms.CharField(max_length=10, required=False, label="病歷號", widget=forms.TextInput(attrs={'placeholder': '輸入病患ID'}))
+    patient_id = forms.CharField(max_length=10, required=False, label="病歷號", widget=forms.TextInput(attrs={'placeholder': '輸入病患ID', 'class':'form-control'}))
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
