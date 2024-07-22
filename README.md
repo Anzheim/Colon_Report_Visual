@@ -8,7 +8,6 @@ git clone https://github.com/Anzheim/Colon_Report_Visual.git
 ```
 python -m venv [虛擬環境名稱]
 ```
-或這個
 e.g. 
 python -m venv venv
 ### 3. 進入虛擬環境
