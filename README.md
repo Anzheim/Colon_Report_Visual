@@ -24,3 +24,8 @@ deactivate
 ```
 exit
 ```
+---
+### 套件下載
+```
+pip install -r requirements.txt
+```
