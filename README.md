@@ -10,14 +10,10 @@ python -m venv [虛擬環境名稱]
 ```
 或這個
 e.g. 
-py -3 -m venv venv
+python -m venv venv
 ### 3. 進入虛擬環境
 ```
 [虛擬環境名稱]\Scripts\activate
-```
-或
-```
-[虛擬環境名稱]\Scripts\activate.bat
 ```
 e.g. `venv\Scripts\activate`
 ### 4. (補充)離開虛擬環境
