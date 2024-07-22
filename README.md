@@ -6,12 +6,6 @@ git clone https://github.com/Anzheim/Colon_Report_Visual.git
 或下載 .zip 壓縮檔
 ### 2. 建立虛擬環境
 ```
-virtualenv [虛擬環境名稱]
-```
-e.g. `virtualenv venv`
-
-如果失敗，試這個
-```
 python -m venv [虛擬環境名稱]
 ```
 或這個
