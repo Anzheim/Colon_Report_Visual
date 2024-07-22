@@ -1,0 +1,8 @@
+PatientName Anzhe
+PatientID F123456789
+CheckDate 20230509
+Focus
+1.息肉 近升結腸 良性的 - 0.3mm
+2.憩室 直腸 二級 - -
+3.憩室 直腸 三級 - -
+4.息肉 乙狀結腸 - 鋸齒狀 0.2m

@@ -1,0 +1,35 @@
+<!-- templates/import_data.html -->
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>新增病歷資料</h1>
+    <form id="upload-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" id="folder-upload" name="file" accept=".txt, image/*" webkitdirectory directory multiple> <!-- 允許上傳資料夾 -->
+        <button type="submit">上傳資料</button>
+    </form>
+    <div id="folder-name">上傳檔案預覽</div>
+
+    <script>
+        document.getElementById('folder-upload').addEventListener('change', function(e){
+            folderName = "";
+            console.log(event.target.files);
+            for(file of event.target.files){
+                console.log(file.name)
+                console.log(file.webkitRelativePath);
+                folderName += file.webkitRelativePath.split('/')[1]+'/'+file.webkitRelativePath.split('/')[2]+'<br>';
+            }
+            folderName += '====================<br>';
+            document.getElementById('folder-name').innerHTML = "上傳檔案預覽: <br>" + folderName;
+        });
+        document.getElementById('upload-form').addEventListener('submit', function (event) {
+            var input = document.getElementById('folder-upload');
+            if (input.files.length === 0) {
+                alert('請選擇一個文件夾!');
+                event.preventDefault();
+            }
+        });
+    </script>
+
+    <p>{{ result }}</p>
+{% endblock %}

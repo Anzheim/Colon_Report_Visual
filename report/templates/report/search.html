@@ -1,0 +1,131 @@
+<!-- templates/report/search.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}搜尋病患{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        /* 設置背景圖片 */
+        background-image: url('{% static "hospital.jpg" %}'); /* 相對於靜態文件的路徑 */
+        /* 調整背景圖片顯示方式 */
+        background-size: cover; /* 覆蓋整個容器 */
+        background-position: center; /* 圖片居中 */
+        /* 其他樣式 */
+        color: #333; /* 文字顏色 */
+        font-family: "Microsoft JhengHei", Arial, sans-serif; /* 字體 */
+    }
+    /* 其他自訂樣式 */
+    .custom-mt {
+        margin-top: 10rem; /* 自定义外边距大小，可以根据需要调整 */
+    }
+    .search-header {
+        font-weight: bold;
+        font-size: 32px; /* 调整为适合的字体大小 */
+    }
+    .search-id {
+        margin-left: -5px;
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .search {
+        font-weight: bold;
+    }
+
+    .container {
+        max-width: 600px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+    .custom-card-header {
+        background-color: #9999cc; /* 这里设置你想要的背景颜色 */
+    }
+    .card-header {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    .btn-primary {
+        background-color: #9999cc;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .list-group-item {
+        border: none;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .list-group-item:last-child {
+        border-bottom: none;
+    }
+
+    .list-unstyled a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .list-unstyled a:hover {
+        text-decoration: underline;
+    }
+
+    .text-danger {
+        color: #dc3545 !important;
+    }
+</style>
+<div class="container custom-mt">
+    <div class="card shadow-sm border-0">
+        <div class="card-header custom-card-header text-white">
+            <h1 class="mb-0 search-header">大腸鏡病歷報告搜尋系統</h1>
+        </div>
+        <div class="card-body">
+            <form method="get" class="form-inline mb-4">
+                <div class="input-group w-100">
+                    {{ form.patient_id }}
+                    <datalist id="patient_ids">
+                        {% for pid in patient_ids %}
+                        <option value="{{ pid }}"></option>
+                        {% endfor %}
+                    </datalist>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary search">搜尋</button>
+                    </div>
+                </div>
+            </form>
+
+            <ul class="list-group mt-3">
+                {% if records %}
+                    <li class="list-group-item">
+                        <a href="{% url 'report:report_detail' patient_id=patient_id checkdate='all' %}">
+                            所有日期的 {{ patient_id }}
+                        </a>
+                    </li>
+                    {% for record in records %}
+                    <li class="list-group-item">
+                        <a href="{% url 'report:report_detail' patient_id=record.patient_id checkdate=record.checkdate %}">
+                            {{ record.patient_id }} - {{ record.checkdate }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <li class="list-group-item text-danger">沒有找到相關病歷。</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}

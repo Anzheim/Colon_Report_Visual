@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scripts %}
+{% endblock scripts %}
+
+{% block content %}
+    <div>
+        <button id="download">Download</button>
+    </div>
+    <div>
+        <div class="modal-body">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit">save</button>
+            </form>
+        </div>
+    </div>
+    {% if object_list %}
+        <ul>
+            {% for obj in obj_list %}
+            <li>{{obj.focus_name}}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+            <p>沒有資料</p>
+    {% endif %}
+{% endblock content %}

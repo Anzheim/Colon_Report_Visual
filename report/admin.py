@@ -1,8 +1,6 @@
 from django.contrib import admin
-from .models import Shape, Patient, PatientColonscropyRecord, Focus
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+from .models import ColonCaseReport
 
-# Register your models here.
-admin.site.register(Shape)
-admin.site.register(Patient)
-admin.site.register(PatientColonscropyRecord)
-admin.site.register(Focus)
+admin.site.register(ColonCaseReport)
