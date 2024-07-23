@@ -24,7 +24,7 @@ deactivate
 exit
 ```
 ---
-### 套件下載
+### 套件下載（記得先切換到 requirements.txt 在的目錄）
 ```
 pip install -r requirements.txt
 ```
