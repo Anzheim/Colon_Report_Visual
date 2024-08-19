@@ -5,22 +5,34 @@
     <h1>新增病歷資料</h1>
     <form id="upload-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="file" id="folder-upload" name="file" accept=".txt, image/*" webkitdirectory directory multiple> <!-- 允許上傳資料夾 -->
+        <input type="hidden" id="files-data" name="files-data">
+        <input type="file" id="folder-upload" name="file" accept=".txt, image/*" webkitdirectory directory multiple>
         <button type="submit">上傳資料</button>
     </form>
-    <div id="folder-name">上傳檔案預覽</div>
+    <div id="folder-name"></div>
 
     <script>
         document.getElementById('folder-upload').addEventListener('change', function(e){
-            folderName = "";
-            console.log(event.target.files);
+            let secondDir = "";
+            let fileData = [];
+            let files = e.target.files;
+            // console.log(event.target.files);
             for(file of event.target.files){
-                console.log(file.name)
-                console.log(file.webkitRelativePath);
-                folderName += file.webkitRelativePath.split('/')[1]+'/'+file.webkitRelativePath.split('/')[2]+'<br>';
+                // console.log(file.name)
+                // console.log(file.webkitRelativePath);
+                let relatibePath = file.webkitRelativePath;
+                let pathParts = relatibePath.split('/');
+                if (pathParts.length > 2) {
+                    secondDir = pathParts[1]; // second-level directory
+                    fileData.push({
+                    filename:pathParts[pathParts.length-1],
+                    secondDir:secondDir
+                });
+                }
             }
-            folderName += '====================<br>';
-            document.getElementById('folder-name').innerHTML = "上傳檔案預覽: <br>" + folderName;
+            console.log(fileData);
+            document.getElementById('folder-name').innerHTML = "上傳檔案預覽: <br>" + fileData.map(data => `${data.secondDir}/${data.filename}`).join('<br>');
+            document.getElementById('files-data').value = JSON.stringify(fileData);
         });
         document.getElementById('upload-form').addEventListener('submit', function (event) {
             var input = document.getElementById('folder-upload');
@@ -31,5 +43,5 @@
         });
     </script>
 
-    <p>{{ result }}</p>
+    <p><pre>{{ result }}</pre></p>
 {% endblock %}

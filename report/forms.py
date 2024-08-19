@@ -1,6 +1,6 @@
 # for download ...  not success yet
 from django import forms
-# from .models import ColonCaseReport
+from .models import ColonCaseReport
 
 class SearchForm(forms.Form):
     patient_id = forms.CharField(max_length=10, required=False, label="病歷號", widget=forms.TextInput(attrs={'placeholder': '輸入病患ID', 'class':'form-control'}))
