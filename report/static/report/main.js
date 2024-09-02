@@ -15,6 +15,11 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 const sceneBox = document.getElementById("scene-box");
 sceneBox.appendChild(renderer.domElement);
 
+// const canvas = sceneBox.querySelector("canvas");
+// const ctx = canvas.getContext("2d");
+// console.log(canvas);
+// console.log(ctx);
+
 const COLON_POSIRION = {
     'panoramic view':0,
     'cecum':1,
@@ -199,6 +204,186 @@ const mouseControl = (cameraX, cameraY, cameraZ, orbitX, orbitY, orbitZ, maxDist
     };
     document.addEventListener("wheel", onMouseWheel);
 };
+
+
+var loader = document.createElement("div");
+loader.className = "loader";
+loader.style.position = "absolute";
+loader.style.top = "0";
+document.body.appendChild(loader);
+
+var co = document.createElement("div");
+co.style.position = "absolute";
+co.style.top = "0";
+co.textContent = "Connected";
+co.setAttribute('id', 'controller-connected-area');
+//co.id = "controller-connected-area";
+document.body.appendChild(co);
+
+var unco = document.createElement("div");
+unco.style.position = "absolute";
+unco.style.top = "15px";
+unco.textContent = "Controller not connected.Press any button to start"
+unco.setAttribute('id', 'controller-not-connected-area');
+//unco.id = "controller-not-connected-area";
+document.body.appendChild(unco);
+
+window.addEventListener("gamepadconnected", (event) => {
+  handleConnectDisconnect(event, true);
+});
+
+window.addEventListener("gamepaddisconnected", (event) => {
+  handleConnectDisconnect(event, false);
+});
+
+function handleConnectDisconnect(event, connected) {
+  const controllerAreaNotConnected = document.getElementById(
+    "controller-not-connected-area"
+  );
+  const controllerAreaConnected = document.getElementById(
+    "controller-connected-area"
+  );
+
+    const gamepad = event.gamepad;
+    console.log(gamepad);
+
+  if (connected) {
+    console.log("connected");
+    //controllerAreaNotConnected.element.id.add("hidden");
+    //controllerAreaConnected.element.id.remove("hidden");
+    loader.style.display = "none";
+    controllerAreaNotConnected.style.display = "none";
+    controllerAreaConnected.style.display = "block";
+    controllerAreaConnected.style.color = "white";
+    controllerIndex = event.gamepad.index;
+  } else {
+    console.log("notconnected");
+    //controllerAreaNotConnected.element.id.remove("hidden");
+    //controllerAreaConnected.element.id.add("hidden");
+    loader.style.display = "block";
+    controllerAreaNotConnected.style.display = "block";
+    controllerAreaConnected.style.display = "none";
+    controllerIndex = null;
+  }
+}
+
+let playerWidthAndHeight = 0;
+let playerX = 0;
+let playerY = 0;
+let playerColor = "red";
+let velocity = 0;
+
+let controllerIndex = null;
+let leftPressed = false;
+let rightPressed = false;
+let upPressed = false;
+let downPressed = false;
+
+let APressed = false;
+let BPressed = false;
+let XPressed = false;
+let YPressed = false;
+
+// function setupCanvas() {
+//     canvas.width = window.innerWidth;
+//     canvas.height = window.innerHeight;
+//     playerWidthAndHeight = canvas.width * 0.01;
+//     velocity = canvas.width * 0.01;
+  
+//     playerX = (canvas.width - playerWidthAndHeight) / 2;
+//     playerY = (canvas.height - playerWidthAndHeight) / 2;
+// }
+
+// function drawPlayer() {
+//     ctx.fillStyle = playerColor;
+//     ctx.fillRect(playerX, playerY, playerWidthAndHeight, playerWidthAndHeight);
+// }
+
+// function controllerInput() {
+//     if (controllerIndex !== null) {
+//       const gamepad = navigator.getGamepads()[controllerIndex];
+  
+//       const buttons = gamepad.buttons;
+//       upPressed = buttons[12].pressed ? 1 : 0;
+//       downPressed = buttons[13].pressed ? 1 : 0;
+//       leftPressed = buttons[14].pressed ? 1 : 0;
+//       rightPressed = buttons[15].pressed ? 1 : 0;
+  
+//       const stickDeadZone = 0.4;
+//       const leftRightValue = gamepad.axes[0];
+  
+//       if (leftRightValue >= stickDeadZone) {
+//         rightPressed = true;
+//       } else if (leftRightValue <= -stickDeadZone) {
+//         leftPressed = true;
+//       }
+  
+//       const upDownValue = gamepad.axes[1];
+  
+//       if (upDownValue >= stickDeadZone) {
+//         downPressed = true;
+//       } else if (upDownValue <= -stickDeadZone) {
+//         upPressed = true;
+//       }
+  
+//       APressed = buttons[0].pressed ? 1 : 0;
+//       BPressed = buttons[1].pressed ? 1 : 0;
+//       XPressed = buttons[2].pressed ? 1 : 0;
+//       YPressed = buttons[3].pressed ? 1 : 0;
+//     }
+//   }
+
+// function movePlayer() {
+//     if (upPressed) {
+//       playerY -= velocity;
+//     }
+//     if (downPressed) {
+//       playerY += velocity;
+//     }
+//     if (leftPressed) {
+//       playerX -= velocity;
+//     }
+//     if (rightPressed) {
+//       playerX += velocity;
+//     }
+// }
+  
+//   function buttonpressed() {
+//     if (upPressed) {
+//         console.log("up")
+//     }
+//     if (downPressed) {
+//           console.log("down")
+//     }
+//     if (leftPressed) {
+//           console.log("left")
+//     }
+//     if (rightPressed) {
+//           console.log("right")
+//     }
+//     if (APressed) {
+//         console.log("A")
+//     }
+//     if (BPressed) {
+//         positionController.setValue(0);
+//     }
+//     if (XPressed) {
+//         console.log("X")
+//     }
+//     if (YPressed) {
+//         console.log("Y")
+//     }
+//   }
+  
+// function gameLoop() {
+//     drawPlayer();
+//     controllerInput();
+//     movePlayer();
+//     buttonpressed();
+//     requestAnimationFrame(gameLoop);
+// }
+  
+// gameLoop();
 
 // ver 2
 // const mouseControl = (cameraX, cameraY, cameraZ, orbitX, orbitY, orbitZ, maxDistance)=>{
@@ -439,8 +624,8 @@ function updateFocusLabels(){
 
 for(const index in focuses){
     // console.log(index);
-    const {patient_name, check_date, focus_name, mark, size, position,  image, treatment_image} = focuses[index];
-    console.log(patient_name, check_date, focus_name, mark, size, position, image, treatment_image);
+    const {patient_name, check_date, focus_name, focus_diagnosis, mark, size, position,  image, treatment_image} = focuses[index];
+    console.log(patient_name, check_date, focus_name, focus_diagnosis, mark, size, position, image, treatment_image);
     patient_Records.push(focuses[index]);
     // add label object
     text[index] = document.createElement( 'div' );
@@ -515,6 +700,7 @@ for(const index in focuses){
                         <div>病灶名稱：`+focuses[index]['focus_name']+`</div>
                         <div>病人姓名：`+focuses[index]['patient_name']+`</div>
                         <div>檢查日期：`+focuses[index]['check_date']+`</div>
+                        <div>診斷說明：`+focuses[index]['focus_diagnosis']+`</div>
                         <div>標記：`+focuses[index]['mark']+`</div>
                         <div>大小：`+focuses[index]['size']+`</div>
                         <div>病灶位置：`+focuses[index]['position']+`</div>
@@ -597,11 +783,13 @@ const directionalLight2 = new THREE.DirectionalLight("#ffffff", 2);
 directionalLight2.position.set(-1, -1, -3);
 scene.add(directionalLight2);
 
+// setupCanvas();
+
 const animate = ()=>{
+    //setupCanvas()
     orbit.update();
-    // console.log("水平Azimuthal:", orbit.getAzimuthalAngle(), "垂直Polar:", orbit.getPolarAngle());
-    // console.log(camera.position.x, camera.position.y, camera.position.z);
-    // console.log(orbit.getDistance());
+    //controllerInput();
+    //buttonpressed();
     renderer.render(scene, camera);
     labelRenderer.render( scene, camera );
     requestAnimationFrame(animate);
