@@ -1,47 +1,107 @@
-<!-- templates/import_data.html -->
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}新增病歷資料{% endblock %}
 
 {% block content %}
-    <h1>新增病歷資料</h1>
-    <form id="upload-form" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="hidden" id="files-data" name="files-data">
-        <input type="file" id="folder-upload" name="file" accept=".txt, image/*" webkitdirectory directory multiple>
-        <button type="submit">上傳資料</button>
-    </form>
-    <div id="folder-name"></div>
+<style>
+    body {
+        /* 設置背景圖片 */
+        background-image: url('{% static "hospital.jpg" %}'); /* 相對於靜態文件的路徑 */
+        /* 調整背景圖片顯示方式 */
+        background-size: cover; /* 覆蓋整個容器 */
+        background-position: center; /* 圖片居中 */
+        /* 其他樣式 */
+        color: #333; /* 文字顏色 */
+        font-family: "Microsoft JhengHei", Arial, sans-serif; /* 字體 */
+    }
+    /* 其他自訂樣式 */
+    .custom-mt {
+        margin-top: 10rem; /* 自定义外边距大小 */
+    }
+    .upload-header {
+        font-weight: bold;
+        font-size: 32px;
+    }
+    .container {
+        max-width: 600px;
+    }
 
-    <script>
-        document.getElementById('folder-upload').addEventListener('change', function(e){
-            let secondDir = "";
-            let fileData = [];
-            let files = e.target.files;
-            // console.log(event.target.files);
-            for(file of event.target.files){
-                // console.log(file.name)
-                // console.log(file.webkitRelativePath);
-                let relatibePath = file.webkitRelativePath;
-                let pathParts = relatibePath.split('/');
-                if (pathParts.length > 2) {
-                    secondDir = pathParts[1]; // second-level directory
-                    fileData.push({
-                    filename:pathParts[pathParts.length-1],
-                    secondDir:secondDir
-                });
-                }
-            }
-            console.log(fileData);
-            document.getElementById('folder-name').innerHTML = "上傳檔案預覽: <br>" + fileData.map(data => `${data.secondDir}/${data.filename}`).join('<br>');
-            document.getElementById('files-data').value = JSON.stringify(fileData);
-        });
-        document.getElementById('upload-form').addEventListener('submit', function (event) {
-            var input = document.getElementById('folder-upload');
-            if (input.files.length === 0) {
-                alert('請選擇一個文件夾!');
-                event.preventDefault();
-            }
-        });
-    </script>
+    .card {
+        border-radius: 15px;
+    }
+    .custom-card-header {
+        background-color: #9999cc; /* 設定背景顏色 */
+    }
+    .card-header {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
 
-    <p><pre>{{ result }}</pre></p>
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .btn-primary {
+        background-color: #9999cc;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .folder-name-preview {
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+</style>
+
+<div class="container custom-mt">
+    <div class="card shadow-sm border-0">
+        <div class="card-header custom-card-header text-white">
+            <h1 class="mb-0 upload-header">新增病歷資料</h1>
+        </div>
+        <div class="card-body">
+            <form id="upload-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" id="files-data" name="files-data">
+                <input type="file" id="folder-upload" name="file" accept=".txt, image/*" webkitdirectory directory multiple class="form-control mb-3">
+                <button type="submit" class="btn btn-primary">上傳資料</button>
+            </form>
+            <div id="folder-name" class="folder-name-preview"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('folder-upload').addEventListener('change', function(e){
+        let secondDir = "";
+        let fileData = [];
+        let files = e.target.files;
+        for(file of event.target.files){
+            let relatibePath = file.webkitRelativePath;
+            let pathParts = relatibePath.split('/');
+            if (pathParts.length > 2) {
+                secondDir = pathParts[1];
+                fileData.push({
+                filename:pathParts[pathParts.length-1],
+                secondDir:secondDir
+            });
+            }
+        }
+        document.getElementById('folder-name').innerHTML = "上傳檔案預覽: <br>" + fileData.map(data => `${data.secondDir}/${data.filename}`).join('<br>');
+        document.getElementById('files-data').value = JSON.stringify(fileData);
+    });
+
+    document.getElementById('upload-form').addEventListener('submit', function (event) {
+        var input = document.getElementById('folder-upload');
+        if (input.files.length === 0) {
+            alert('請選擇一個文件夾!');
+            event.preventDefault();
+        }
+    });
+</script>
+
 {% endblock %}
