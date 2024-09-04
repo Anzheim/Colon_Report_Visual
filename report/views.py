@@ -20,7 +20,7 @@ def serialize_datetime(obj):
     raise TypeError("Type not serializable") 
 
 def home_view(request):
-    # 查完 patient_id 後的結果
+    """# 查完 patient_id 後的結果
     focuses = [ {
         "patient_name":y.patient_name,
         "check_date":serialize_datetime(y.checkdate),
@@ -34,8 +34,8 @@ def home_view(request):
         } for y in ColonCaseReport.objects.all()]
     #shape_json = json.dumps(shapes)
     focuses_json = json.dumps(focuses)
-    context = {'focuses': focuses_json}
-    return render(request, 'report/main.html', context)
+    context = {'focuses': focuses_json}"""
+    return render(request, 'report/main.html')
 
 def search(request):
     form = SearchForm(request.GET or None)

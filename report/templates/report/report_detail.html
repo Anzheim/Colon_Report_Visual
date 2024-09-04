@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block scripts %}
@@ -16,31 +16,24 @@
                 "three/addons/": "https://unpkg.com/three@0.164.1/examples/jsm/"
             }
         }
+    </script>      
+
+    <script>
+        const focuses = JSON.parse('{{focuses | safe}}');
+        console.log(focuses); 
     </script>
 
-<script>
-    const focuses = JSON.parse('{{focuses | safe}}');
-    console.log(focuses); 
-</script>
-
-<script type="module" src="{% static 'report/main.js' %}"></script>
-
-<script type="module" src="{% static 'report/main.js' %}"></script>
-<script src="
-    https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js
-"></script>
-<link href="
-    https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.css
-" rel="stylesheet">
+    <script type="module" src="{% static 'report/main.js' %}"></script>
+    <script src="
+        https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js
+    "></script>
+    <link href="
+        https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.css
+    " rel="stylesheet">
+    
 {% endblock scripts %}
 
-
 {% block content %}
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <title>病例報告</title>
     <style>
         .label {
             color: white;
@@ -62,6 +55,7 @@
         .label_of_position.hidden{
             display: none;
         }
+
         .slick-slider {
             width: 300px;
             margin: 0 auto;
@@ -84,18 +78,51 @@
             cursor: pointer;
             z-index: 1000;
         }
-    </style>
-</head>
-<body>
-    <div id="scene-box"></div>
-    <!-- <h1>病例報告</h1>
-    <p>病患ID: {{ report.patient_id }}</p>
-    <p>檢查日期: {{ report.checkdate }}</p>
-    {{records}} -->
+        .center {
+          text-align: LEFT;
+        }
 
-    <!-- 顯示其他報告內容 -->
-    <!-- 例如：顯示圖片、診斷結果等 -->
-    
-</body>
-</html>
-{% endblock %}
+        .controller-status {
+          font-weight: bold;
+          text-align: LEFT;
+        }
+
+        #controller-connected {
+          color: white;
+        }
+
+        #controller-connected-area {
+          display: none;
+        }
+
+        #controller-not-connected-area {
+          color: white;
+          display: flex;
+          justify-content: LEFT;
+          align-items: LEFT;
+          gap: 10px;
+        }
+
+        .loader {
+          display: inline-block;
+          border: 8px solid #484848;
+          border-radius: 50%;
+          border-top: 8px solid #3498db;
+          border-bottom: 8px solid #3498db;
+          width: 20px;
+          height: 20px;
+          -webkit-animation: spin 1.5s linear infinite;
+          animation: spin 1.5s linear infinite;
+        }
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+    </style>
+    <div id="scene-box"></div>
+{% endblock content %}
