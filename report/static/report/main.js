@@ -719,8 +719,8 @@ function controllerInput() {
         const buttons = gamepad.buttons;
         upPressed = buttons[12].pressed ? 1 : 0; // 上鍵
         downPressed = buttons[13].pressed ? 1 : 0; // 下鍵
-        leftPressed = buttons[14].pressed ? 1 : 0; // 左鍵
-        rightPressed = buttons[15].pressed ? 1 : 0; // 右鍵
+        PrevPressed = buttons[14].pressed ? 1 : 0; // 上一段大腸
+        NextPressed = buttons[15].pressed ? 1 : 0; // 下一段大腸
     
         const stickDeadZone = 0.5; // 搖桿靈敏度
         const leftRightValueLEFT = gamepad.axes[0]; // 左右搖桿，左負右正，範圍-1~1，0為中間，超過0.4才算按下
@@ -756,8 +756,8 @@ function controllerInput() {
         XPressed = buttons[2].pressed ? 1 : 0;
         YPressed = buttons[3].pressed ? 1 : 0;
 
-        PrevPressed = buttons[4].pressed ? 1 : 0;
-        NextPressed = buttons[5].pressed ? 1 : 0;
+        leftPressed = buttons[4].pressed ? 1 : 0; // 上一張照片
+        rightPressed = buttons[5].pressed ? 1 : 0; // 下一張照片
 
         // 檢查 PrevPressed 是否從按下變為放開
         if (prevPrevPressed === 1 && PrevPressed === 0) {
@@ -844,7 +844,7 @@ function buttonpressed() {
     }
     if (BPressed) {
         positionController.setValue(0);
-        camera.rotation.set(0, 0, 0);
+        camera.up.set(0, 1, 0);
     }
     if (XPressed) {
         console.log("X");
