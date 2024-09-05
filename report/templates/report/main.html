@@ -1,126 +1,118 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
-{% block scripts %}
-    <!-- SweetAlert2 JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Slick JavaScript -->
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script defer src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.164.1/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.164.1/examples/jsm/"
-            }
-        }
-    </script>      
-
-    <script>
-        const focuses = JSON.parse('{{focuses | safe}}');
-        console.log(focuses); 
-    </script>
-
-    <script type="module" src="{% static 'report/main.js' %}"></script>
-    <script src="
-        https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js
-    "></script>
-    <link href="
-        https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.css
-    " rel="stylesheet">
-{% endblock scripts %}
+{% block title %}大腸鏡病歷管理系統{% endblock %}
 
 {% block content %}
-    <style>
-        .label {
-            color: white;
-            text-shadow: -1px 1px 1px rgb(0,0,0);
-            margin-left: 25px;
-            font-size: 20px;
-            display: block;
+<style>
+    body {
+        background-image: url('{% static "hospital.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        color: white; /* 全局設置文字顏色為白色 */
+        font-family: "Microsoft JhengHei", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .welcome-message {
+        font-size: 36px;
+        font-weight: bold; /* 設置文字粗體 */
+        text-align: center;
+        opacity: 0;
+        animation: fadeIn 4s forwards; /* 文字淡入動畫 */
+        margin-bottom: 2rem; /* 增加下邊距以與按鈕區域分開 */
+        position: relative;
+        z-index: 1;
+        /* 增加文字陰影 */
+        text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.8);
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
         }
-        .label.hidden {
-            display: none;
+        to {
+            opacity: 1;
         }
-        .label_of_position {
-            color: lightblue;
-            font-weight: bold;
-            text-decoration: underline;
-            font-size: 25px;
-            font-family: "DFKai-SB"
-        }
-        .label_of_position.hidden{
-            display: none;
-        }
+    }
+    
+    .btn-container {
+        text-align: center;
+    }
+    
+    .btn {
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        min-width: 200px;
+        background: #9999cc;  /* 按鈕背景色 */
+        border: 2px solid #9999cc;  /* 按鈕邊框色 */
+        border-radius: 10px;
+        color: white;  /* 按鈕文字顏色 */
+        font-size: 1rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        overflow: hidden;
+        transition: 0.5s;
+        padding: 10px 20px;
+        margin: 0 10px;
+    }
+    
+    .btn span {
+        position: absolute;
+        width: 25%;
+        height: 100%;
+        background-color: white;  /* 泡泡效果顏色 */
+        transform: translateY(150%);
+        border-radius: 50%;
+        left: calc((var(--n) - 1) * 25%);
+        transition: 0.5s;
+        transition-delay: calc((var(--n) - 1) * 0.1s);
+        z-index: -1;
+    }
+    
+    .btn:hover,
+    .btn:focus {
+        color: black;  /* 按鈕文字顏色在懸停時變為黑色 */
+    }
+    
+    .btn:hover span {
+        transform: translateY(0) scale(2);  /* 泡泡效果的動畫 */
+    }
+    
+    .btn span:nth-child(1) {
+        --n: 1;
+    }
+    .btn span:nth-child(2) {
+        --n: 2;
+    }
+    .btn span:nth-child(3) {
+        --n: 3;
+    }
+    .btn span:nth-child(4) {
+        --n: 4;
+    }
+</style>
 
-        .slick-slider {
-            width: 300px;
-            margin: 0 auto;
-        }
-        .slick-slide img {
-            width: 100%;
-        }
-        .description {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #555;
-        }
-        .slick-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: white;
-            border: none;
-            cursor: pointer;
-            z-index: 1000;
-        }
-        .center {
-          text-align: LEFT;
-        }
-
-        .controller-status {
-          font-weight: bold;
-          text-align: LEFT;
-        }
-
-        #controller-connected {
-          color: white;
-        }
-
-        #controller-connected-area {
-          display: none;
-        }
-
-        #controller-not-connected-area {
-          color: white;
-          display: flex;
-          justify-content: LEFT;
-          align-items: LEFT;
-          gap: 10px;
-        }
-
-        .loader {
-          display: inline-block;
-          border: 8px solid #484848;
-          border-radius: 50%;
-          border-top: 8px solid #3498db;
-          border-bottom: 8px solid #3498db;
-          width: 20px;
-          height: 20px;
-          -webkit-animation: spin 1.5s linear infinite;
-          animation: spin 1.5s linear infinite;
-        }
-        @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-    </style>
-    <div id="scene-box"></div>
-{% endblock content %}
+<div class="welcome-message">
+    大腸鏡病歷管理系統
+</div>
+<div class="btn-container">
+    <a href="/search/" class="btn">
+        搜尋病歷
+        <span></span><span></span><span></span><span></span>
+    </a>
+    <a href="/import_data/" class="btn">
+        新增病歷
+        <span></span><span></span><span></span><span></span>
+    </a>
+</div>
+{% endblock %}
