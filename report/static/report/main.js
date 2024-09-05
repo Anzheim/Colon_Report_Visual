@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls'
+import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
@@ -14,11 +15,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 const sceneBox = document.getElementById("scene-box");
 sceneBox.appendChild(renderer.domElement);
-
-// const canvas = sceneBox.querySelector("canvas");
-// const ctx = canvas.getContext("2d");
-// console.log(canvas);
-// console.log(ctx);
 
 const COLON_POSIRION = {
     'panoramic view':0,
@@ -37,6 +33,7 @@ const params = {
     showPositionLabel: true,
     panoramic: ()=>{
         positionController.setValue(0);
+        camera.up.set(0, 1, 0);
     },
     previous:()=>{
         if (params.ColonoscopyPosition > 1) {
@@ -104,81 +101,81 @@ function showAll(){
     positionLabelShow();
     allFoucsShow();
     camera.position.set(-400, 0, 0);
-    orbit.target.set(0, 0, 0);
-    orbit.maxDistance = 400;
+    controls.target.set(0, 0, 0);
+    controls.maxDistance = 400;
 };
 
 function showAscendingNear(){
     positionLabelHide();
     camera.position.set(-10, -50 , -90); //相機位置
-    orbit.target.set(30, 40 , -130); //中心點位置
-    orbit.maxDistance = 106;
+    controls.target.set(30, 40 , -130); //中心點位置
+    controls.maxDistance = 106;
     updateLabelsVisibility('a');
-    mouseControl(camera.position.x, camera.position.y, camera.position.z, orbit.target.x, orbit.target.y, orbit.target.z, 106);
+    mouseControl(camera.position.x, camera.position.y, camera.position.z, controls.target.x, controls.target.y, controls.target.z, 106);
 };
 function showAscendingFar(){
     positionLabelHide();
     camera.position.set(30, 30 , -130); //相機位置
-    orbit.target.set(35, 80, -130); //中心點位置
-    orbit.maxDistance = 41;
+    controls.target.set(35, 80, -130); //中心點位置
+    controls.maxDistance = 41;
     updateLabelsVisibility('a');
-    mouseControl(camera.position.x, camera.position.y, camera.position.z, orbit.target.x, orbit.target.y, orbit.target.z, 41);
+    mouseControl(camera.position.x, camera.position.y, camera.position.z, controls.target.x, controls.target.y, controls.target.z, 41);
 }
 function showDescendingNear(){
     positionLabelHide();
     camera.position.set(15, 175 ,120);
-    orbit.target.set(-25, 0 , 105);
-    orbit.maxDistance = 168;                
+    controls.target.set(-25, 0 , 105);
+    controls.maxDistance = 168;                
     updateLabelsVisibility('d');
-    mouseControl(camera.position.x, camera.position.y, camera.position.z, orbit.target.x, orbit.target.y, orbit.target.z, 168); 
+    mouseControl(camera.position.x, camera.position.y, camera.position.z, controls.target.x, controls.target.y, controls.target.z, 168); 
 }
 function showDescendingFar(){
     positionLabelHide();
     camera.position.set(-25, 0 , 115);
-    orbit.target.set(-75, -110 , 100);
-    orbit.maxDistance = 117;
+    controls.target.set(-75, -110 , 100);
+    controls.maxDistance = 117;
     updateLabelsVisibility('d');
-    mouseControl(camera.position.x, camera.position.y, camera.position.z, orbit.target.x, orbit.target.y, orbit.target.z, 117);
+    mouseControl(camera.position.x, camera.position.y, camera.position.z, controls.target.x, controls.target.y, controls.target.z, 117);
 }
 function showTransverseNear(){
     positionLabelHide();
     camera.position.set(40, 90 , -140);
-    orbit.target.set(20, 120 , -20);
-    orbit.maxDistance = 125;
+    controls.target.set(20, 120 , -20);
+    controls.maxDistance = 125;
     updateLabelsVisibility('t');
-    mouseControl(camera.position.x, camera.position.y, camera.position.z, orbit.target.x, orbit.target.y, orbit.target.z, 125);
+    mouseControl(camera.position.x, camera.position.y, camera.position.z, controls.target.x, controls.target.y, controls.target.z, 125);
 }
 function showTransverseFar(){
     positionLabelHide();
     camera.position.set(10, 130 , -20);
-    orbit.target.set(15, 175 ,120);
-    orbit.maxDistance = 166;
+    controls.target.set(15, 175 ,120);
+    controls.maxDistance = 166;
     updateLabelsVisibility('t');
-    mouseControl(camera.position.x, camera.position.y, camera.position.z, orbit.target.x, orbit.target.y, orbit.target.z, 166);
+    mouseControl(camera.position.x, camera.position.y, camera.position.z, controls.target.x, controls.target.y, controls.target.z, 166);
 }
 function showCecum(){
     positionLabelHide();
     camera.position.set(-50, -110 , -80);
-    orbit.target.set(-30, -73, -88);
-    orbit.maxDistance = 41;
+    controls.target.set(-30, -73, -88);
+    controls.maxDistance = 41;
     updateLabelsVisibility('c');
-    mouseControl(camera.position.x, camera.position.y, camera.position.z, orbit.target.x, orbit.target.y, orbit.target.z, 41);
+    mouseControl(camera.position.x, camera.position.y, camera.position.z, controls.target.x, controls.target.y, controls.target.z, 41);
 }
 function showSigmoid(){
     positionLabelHide();
     camera.position.set(-81, -111 , 113);
-    orbit.target.set(-29, -129, 52);
-    orbit.maxDistance = 83;
+    controls.target.set(-29, -129, 52);
+    controls.maxDistance = 83;
     updateLabelsVisibility('s');
-    mouseControl(camera.position.x, camera.position.y, camera.position.z, orbit.target.x, orbit.target.y, orbit.target.z, 83);
+    mouseControl(camera.position.x, camera.position.y, camera.position.z, controls.target.x, controls.target.y, controls.target.z, 83);
 }
 function showRectum(){
     positionLabelHide();
     camera.position.set(-28, -146, 43); 
-    orbit.target.set(-30, -170, 53);
-    orbit.maxDistance = 30;
+    controls.target.set(-30, -170, 53);
+    controls.maxDistance = 30;
     updateLabelsVisibility('r');
-    mouseControl(camera.position.x, camera.position.y, camera.position.z, orbit.target.x, orbit.target.y, orbit.target.z, 30);
+    mouseControl(camera.position.x, camera.position.y, camera.position.z, controls.target.x, controls.target.y, controls.target.z, 30);
 }
 
 // ver1
@@ -190,17 +187,17 @@ const mouseControl = (cameraX, cameraY, cameraZ, orbitX, orbitY, orbitZ, maxDist
         camera.getWorldDirection(direction);
         if(e.button==0){ //左鍵做校正
             camera.position.set(cameraX, cameraY, cameraZ);
-            orbit.target.set(orbitX, orbitY, orbitZ);
-            orbit.maxDistance = maxDistance;
+            controls.target.set(orbitX, orbitY, orbitZ);
+            controls.maxDistance = maxDistance;
         }
         if(e.button==2){ //右鍵拉近中心點
-            orbit.target.set(camera.position.x+direction.x, camera.position.y+direction.y, camera.position.z+direction.z);
+            controls.target.set(camera.position.x+direction.x, camera.position.y+direction.y, camera.position.z+direction.z);
         }
     };
     document.addEventListener("mousedown", onMouseDown);
     onMouseWheel = () => {
-        orbit.maxDistance = maxDistance;
-        orbit.target.set(orbitX, orbitY, orbitZ);
+        controls.maxDistance = maxDistance;
+        controls.target.set(orbitX, orbitY, orbitZ);
     };
     document.addEventListener("wheel", onMouseWheel);
 };
@@ -267,124 +264,6 @@ function handleConnectDisconnect(event, connected) {
   }
 }
 
-let playerWidthAndHeight = 0;
-let playerX = 0;
-let playerY = 0;
-let playerColor = "red";
-let velocity = 0;
-
-let controllerIndex = null;
-let leftPressed = false;
-let rightPressed = false;
-let upPressed = false;
-let downPressed = false;
-
-let APressed = false;
-let BPressed = false;
-let XPressed = false;
-let YPressed = false;
-
-// function setupCanvas() {
-//     canvas.width = window.innerWidth;
-//     canvas.height = window.innerHeight;
-//     playerWidthAndHeight = canvas.width * 0.01;
-//     velocity = canvas.width * 0.01;
-  
-//     playerX = (canvas.width - playerWidthAndHeight) / 2;
-//     playerY = (canvas.height - playerWidthAndHeight) / 2;
-// }
-
-// function drawPlayer() {
-//     ctx.fillStyle = playerColor;
-//     ctx.fillRect(playerX, playerY, playerWidthAndHeight, playerWidthAndHeight);
-// }
-
-// function controllerInput() {
-//     if (controllerIndex !== null) {
-//       const gamepad = navigator.getGamepads()[controllerIndex];
-  
-//       const buttons = gamepad.buttons;
-//       upPressed = buttons[12].pressed ? 1 : 0;
-//       downPressed = buttons[13].pressed ? 1 : 0;
-//       leftPressed = buttons[14].pressed ? 1 : 0;
-//       rightPressed = buttons[15].pressed ? 1 : 0;
-  
-//       const stickDeadZone = 0.4;
-//       const leftRightValue = gamepad.axes[0];
-  
-//       if (leftRightValue >= stickDeadZone) {
-//         rightPressed = true;
-//       } else if (leftRightValue <= -stickDeadZone) {
-//         leftPressed = true;
-//       }
-  
-//       const upDownValue = gamepad.axes[1];
-  
-//       if (upDownValue >= stickDeadZone) {
-//         downPressed = true;
-//       } else if (upDownValue <= -stickDeadZone) {
-//         upPressed = true;
-//       }
-  
-//       APressed = buttons[0].pressed ? 1 : 0;
-//       BPressed = buttons[1].pressed ? 1 : 0;
-//       XPressed = buttons[2].pressed ? 1 : 0;
-//       YPressed = buttons[3].pressed ? 1 : 0;
-//     }
-//   }
-
-// function movePlayer() {
-//     if (upPressed) {
-//       playerY -= velocity;
-//     }
-//     if (downPressed) {
-//       playerY += velocity;
-//     }
-//     if (leftPressed) {
-//       playerX -= velocity;
-//     }
-//     if (rightPressed) {
-//       playerX += velocity;
-//     }
-// }
-  
-//   function buttonpressed() {
-//     if (upPressed) {
-//         console.log("up")
-//     }
-//     if (downPressed) {
-//           console.log("down")
-//     }
-//     if (leftPressed) {
-//           console.log("left")
-//     }
-//     if (rightPressed) {
-//           console.log("right")
-//     }
-//     if (APressed) {
-//         console.log("A")
-//     }
-//     if (BPressed) {
-//         positionController.setValue(0);
-//     }
-//     if (XPressed) {
-//         console.log("X")
-//     }
-//     if (YPressed) {
-//         console.log("Y")
-//     }
-//   }
-  
-// function gameLoop() {
-//     drawPlayer();
-//     controllerInput();
-//     movePlayer();
-//     buttonpressed();
-//     requestAnimationFrame(gameLoop);
-// }
-  
-// gameLoop();
-
 // ver 2
 // const mouseControl = (cameraX, cameraY, cameraZ, orbitX, orbitY, orbitZ, maxDistance)=>{
 //     document.addEventListener("mousedown", function(e){
@@ -392,16 +271,16 @@ let YPressed = false;
 //         camera.getWorldDirection(direction);
 //         if(e.button==0){ //左鍵做校正
 //             camera.position.set(cameraX, cameraY, cameraZ);
-//             orbit.target.set(orbitX, orbitY, orbitZ);
-//             orbit.maxDistance = maxDistance;
+//             controls.target.set(orbitX, orbitY, orbitZ);
+//             controls.maxDistance = maxDistance;
 //         }
 //         if(e.button==2){ //右鍵拉近中心點
-//             orbit.target.set(camera.position.x+direction.x, camera.position.y+direction.y, camera.position.z+direction.z);
+//             controls.target.set(camera.position.x+direction.x, camera.position.y+direction.y, camera.position.z+direction.z);
 //         }
 //     });
 //     document.addEventListener("wheel", function(e){ //滑鼠滾動
-//         orbit.maxDistance = maxDistance;
-//         orbit.target.set(orbitX, orbitY, orbitZ); //中心點位置
+//         controls.maxDistance = maxDistance;
+//         controls.target.set(orbitX, orbitY, orbitZ); //中心點位置
 //     });
 // };
 
@@ -410,37 +289,37 @@ let YPressed = false;
 // const mouseControl = (cameraX, cameraY, cameraZ, orbitX, orbitY, orbitZ, maxDistance)=>{
 //     var flag = 0;
 //     var NewcameraX, NewcameraY, NewcameraZ;
-//     orbit.mouseButtons = {
+//     controls.mouseButtons = {
 //         LEFT: THREE.MOUSE.ROTATE,
 //         RIGHT: THREE.MOUSE.PAN
 //     }
 //     camera.position.set(cameraX, cameraY, cameraZ);
-//     orbit.target.set(orbitX, orbitY, orbitZ);
+//     controls.target.set(orbitX, orbitY, orbitZ);
 
 //     document.addEventListener("mousedown", function(e){
 //         if(e.button==2){ //右鍵做位移
-//             orbit.target.set(orbitX, orbitY, orbitZ);
-//             orbit.maxDistance = maxDistance;
+//             controls.target.set(orbitX, orbitY, orbitZ);
+//             controls.maxDistance = maxDistance;
 //             NewcameraX = camera.position.x;
 //             NewcameraY = camera.position.y;
 //             NewcameraZ = camera.position.z;
 //         }
 //         if(e.button==4){
 //             camera.position.set(cameraX, cameraY, cameraZ);
-//             orbit.target.set(orbitX, orbitY, orbitZ);
+//             controls.target.set(orbitX, orbitY, orbitZ);
 //         }
 //         if(e.button==0){ //左鍵拉近中心點
 //             const direction = new THREE.Vector3();
 //             camera.getWorldDirection(direction);
 //             if(flag){
 //                 camera.position.set(NewcameraX, NewcameraY, NewcameraZ);
-//                 orbit.target.set(cameraX+direction.x, cameraY+direction.y, cameraZ+direction.z);
+//                 controls.target.set(cameraX+direction.x, cameraY+direction.y, cameraZ+direction.z);
 //                 // alert(direction.x);
 //                 // alert(direction.y);
 //                 // alert(direction.z);
 //             }else{ // 點進來時 mousedown 左鍵算一次
 //                 camera.position.set(cameraX, cameraY, cameraZ);
-//                 orbit.target.set(orbitX, orbitY, orbitZ);
+//                 controls.target.set(orbitX, orbitY, orbitZ);
 //                 NewcameraX = cameraX;
 //                 NewcameraY = cameraY;
 //                 NewcameraZ = cameraZ;
@@ -449,11 +328,11 @@ let YPressed = false;
 //         }
 //     });
 //     document.addEventListener("wheel", function(e){ //滑鼠滾動
-//         orbit.target.set(orbitX, orbitY, orbitZ); //中心點位置
+//         controls.target.set(orbitX, orbitY, orbitZ); //中心點位置
 //         NewcameraX = camera.position.x;
 //         NewcameraY = camera.position.y;
 //         NewcameraZ = camera.position.z;
-//         orbit.maxDistance = maxDistance;
+//         controls.maxDistance = maxDistance;
 //     });
 // };
 
@@ -730,7 +609,7 @@ for(const index in focuses){
                 });
             }
         }); 
-    });
+    });   
 }
 
 // gltf loader
@@ -766,8 +645,8 @@ labelRenderer.domElement.style.color = 'white';
 document.body.appendChild( labelRenderer.domElement );
 
 //軌道旋轉控制
-const orbit = new OrbitControls(camera, labelRenderer.domElement);
-orbit.mouseButtons = {
+const controls = new TrackballControls(camera, labelRenderer.domElement);
+controls.mouseButtons = {
 	LEFT: THREE.MOUSE.PAN,
 	RIGHT: THREE.MOUSE.ROTATE
 }
@@ -783,13 +662,223 @@ const directionalLight2 = new THREE.DirectionalLight("#ffffff", 2);
 directionalLight2.position.set(-1, -1, -3);
 scene.add(directionalLight2);
 
-// setupCanvas();
+const cursor = document.createElement('div');
+cursor.style.width = '20px';
+cursor.style.height = '20px';
+cursor.style.backgroundColor = 'red';
+cursor.style.borderRadius = '50%';
+cursor.style.position = 'absolute';
+cursor.style.pointerEvents = 'none'; // 讓游標不可被點擊
+cursor.style.zIndex = '999';
+
+labelRenderer.domElement.appendChild(cursor);
+
+// document.addEventListener('mousemove', (event) => { // 更新遊標位置
+//     cursor.style.left = `${event.clientX}px`;
+//     cursor.style.top = `${event.clientY}px`;
+//   });
+
+
+// 設定 cursor 的初始位置在畫面中央
+let cursorX = window.innerWidth / 2; 
+let cursorY = window.innerHeight / 2;
+cursor.style.left = `${cursorX}px`;
+cursor.style.top = `${cursorY}px`;
+
+let controllerIndex = null;
+let leftPressed = false;
+let rightPressed = false;
+let upPressed = false;
+let downPressed = false;
+
+let leftMoved = false;
+let rightMoved = false;
+let upMoved = false;
+let downMoved = false;
+
+let leftRotate = false;
+let rightRotate = false;
+let upRotate = false;
+let downRotate = false;
+
+let APressed = false;
+let BPressed = false;
+let XPressed = false;
+let YPressed = false;
+
+let PrevPressed = false;
+let NextPressed = false;
+
+let prevPrevPressed = 0; // 記錄上一個 PrevPressed 的狀態
+let prevNextPressed = 0; // 記錄上一個 NextPressed 的狀態
+
+function controllerInput() {
+    if (controllerIndex !== null) {
+        const gamepad = navigator.getGamepads()[controllerIndex];
+  
+        const buttons = gamepad.buttons;
+        upPressed = buttons[12].pressed ? 1 : 0; // 上鍵
+        downPressed = buttons[13].pressed ? 1 : 0; // 下鍵
+        leftPressed = buttons[14].pressed ? 1 : 0; // 左鍵
+        rightPressed = buttons[15].pressed ? 1 : 0; // 右鍵
+    
+        const stickDeadZone = 0.5; // 搖桿靈敏度
+        const leftRightValueLEFT = gamepad.axes[0]; // 左右搖桿，左負右正，範圍-1~1，0為中間，超過0.4才算按下
+        if (leftRightValueLEFT >= stickDeadZone) {
+            rightMoved = true;
+        } else if (leftRightValueLEFT <= -stickDeadZone) {
+            leftMoved = true;
+        }else{
+            leftMoved = false;
+            rightMoved = false;
+        }
+    
+        const upDownValueLEFT = gamepad.axes[1]; // 上下搖桿，上負下正，範圍-1~1，0為中間，超過0.4才算按下
+    
+        if (upDownValueLEFT >= stickDeadZone) {
+            downMoved = true;
+        } else if (upDownValueLEFT <= -stickDeadZone) {
+            upMoved = true;
+        } else{
+            upMoved = false;
+            downMoved = false;
+        }
+
+        const rotateY = gamepad.axes[2];
+        const rotateX = gamepad.axes[3];
+        // 右搖桿控制相機旋轉繞x,y軸旋轉
+        if(Math.abs(rotateX) > 0.1 || Math.abs(rotateY) > 0.1){
+            camera.rotation.x += rotateX * Math.PI;
+            camera.rotation.y -= rotateY * Math.PI;
+        }
+        APressed = buttons[0].pressed ? 1 : 0;
+        BPressed = buttons[1].pressed ? 1 : 0;
+        XPressed = buttons[2].pressed ? 1 : 0;
+        YPressed = buttons[3].pressed ? 1 : 0;
+
+        PrevPressed = buttons[4].pressed ? 1 : 0;
+        NextPressed = buttons[5].pressed ? 1 : 0;
+
+        // 檢查 PrevPressed 是否從按下變為放開
+        if (prevPrevPressed === 1 && PrevPressed === 0) {
+            // 在這裡處理 PrevPressed 放開的邏輯
+            console.log("PrevPressed 按鈕放開");
+            params.previous();
+        }
+
+        // 檢查 NextPressed 是否從按下變為放開
+        if (prevNextPressed === 1 && NextPressed === 0) {
+            // 在這裡處理 NextPressed 放開的邏輯
+            console.log("NextPressed 按鈕放開");
+            params.next();
+        }
+        // 更新 prevPrevPressed 和 prevNextPressed 狀態
+        prevPrevPressed = PrevPressed;
+        prevNextPressed = NextPressed;
+    }
+}
+
+function moveCursor() {
+    if (upMoved) {
+      // 光標往上移動
+      cursorY -= 6;
+      cursor.style.top = `${cursorY}px`;
+    }
+    if (downMoved) {
+      // 光標往下移動
+      cursorY += 6;
+      cursor.style.top = `${cursorY}px`;
+    }
+    if (leftMoved) {
+      // 光標往左移動
+      cursorX -= 6;
+      cursor.style.left = `${cursorX}px`;
+    }
+    if (rightMoved) {
+      // 光標往右移動  
+      cursorX += 6;
+      cursor.style.left = `${cursorX}px`;
+    }
+    // 如果光標超出畫面範圍，就停在邊界
+    if (cursorX < 0) {
+      cursorX = 0;
+    }else if (cursorX > window.innerWidth-20) {
+        cursorX = window.innerWidth-20;
+    }
+    if (cursorY < 0) {
+        cursorY = 0;
+    }else if (cursorY > window.innerHeight-20) {
+        cursorY = window.innerHeight-20;
+    }
+}
+function buttonpressed() {
+    if (upPressed) { //放大畫面
+        console.log("Zoom in");
+        //模擬滑鼠滾動使相機朝中心點拉近
+        const eventZoomIn = new WheelEvent('wheel', { deltaY: -20 });
+        labelRenderer.domElement.dispatchEvent(eventZoomIn);
+    } 
+    if (downPressed) { //縮小畫面
+        console.log("Zoom out");
+        const eventZoomOut = new WheelEvent('wheel', { deltaY: 20 });
+        labelRenderer.domElement.dispatchEvent(eventZoomOut);
+    }
+    if (leftPressed) {
+        console.log("left")
+        $('.slick-prev').click();
+    }
+    if (rightPressed) {
+        console.log("right");
+        $('.slick-next').click();
+    }
+    //當A被按下時，根據 CursorX, CursorY 的位置來進行網頁點擊label元素
+    if (APressed) {
+        console.log("A");
+        const elements = document.elementsFromPoint(cursorX, cursorY); // 取得游標所在位置的元素
+        console.log(cursorX, cursorY);
+        elements.forEach((element) => { // 對每個元素進行迴圈，element 是點擊位置的每個元素
+            if (element.classList.contains('label') || element.classList.contains('label_of_position')) { // 如果元素有 label 或 label_of_position 這個 class
+                element.dispatchEvent(new Event('pointerdown')); // 觸發元素的 pointerdown 事件
+            }
+        });
+    }
+    if (BPressed) {
+        positionController.setValue(0);
+        camera.rotation.set(0, 0, 0);
+    }
+    if (XPressed) {
+        console.log("X");
+        // 關閉 Swal 彈窗
+        Swal.close();
+    }
+//     if (YPressed) {
+//         console.log("Y")
+//  }
+}
+
+const rotationSpeed = 0.5;
+
+function DragControls() {
+    if(leftRotate){
+        console.log("leftRotate");
+    }
+    if(rightRotate){
+        console.log("rightRotate");
+    }
+    if(upRotate){
+        console.log("upRotate");
+    }
+    if(downRotate){
+        console.log("downRotate");
+    }
+}
 
 const animate = ()=>{
-    //setupCanvas()
-    orbit.update();
-    //controllerInput();
-    //buttonpressed();
+    controls.update();
+    controllerInput();
+    moveCursor();
+    buttonpressed();
+    DragControls();
     renderer.render(scene, camera);
     labelRenderer.render( scene, camera );
     requestAnimationFrame(animate);
