@@ -3,4 +3,4 @@ PatientID F123456789
 CheckDate 20230509
 Focus
 1. 息肉 c 良性的 0.4cm 活檢切除
-2. 混合痔 r 二級 -
+2. 混合痔 r 二級 - -
