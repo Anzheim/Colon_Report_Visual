@@ -56,6 +56,7 @@ def report_detail(request, patient_id, checkdate):
         "size": y.size,
         "position":y.position,
         "image": str(y.image),
+        "treatment":y.treatment,
         "treatment_image":str(y.treatment_image)
         } for y in records]
     #shape_json = json.dumps(shapes)
