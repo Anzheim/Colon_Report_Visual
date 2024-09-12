@@ -129,8 +129,8 @@ def import_data(request):
                     # print(content)
                     patientName, focusdata = readfile(file)
                     print("PatientName:",patientName)
-                    for num, focus, position, mark, size in focusdata:
-                        print(f"num:{num}, focus:{focus}, position:{position}, mark:{mark}, size:{size}")
+                    for num, focus, position, mark, size, treatment in focusdata:
+                        print(f"num:{num}, focus:{focus}, position:{position}, mark:{mark}, size:{size}, treatment:{treatment}")
                     
                     print("-----------------------------")
                     break
@@ -152,6 +152,7 @@ def import_data(request):
                         position = focusdata[int(img_num)-1][2],
                         mark = focusdata[int(img_num)-1][3],
                         size = focusdata[int(img_num)-1][4],
+                        treatment = focusdata[int(img_num)-1][5],
                         checkdate = datetime.datetime.strptime(folder_name.split('+')[1], "%Y%m%d"),
                         image = "images/"+folder_name+img,
                         treatment_image = "treatment_image/"+folder_name+corresponding_tim,

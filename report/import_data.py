@@ -14,13 +14,16 @@ def readfile(file):
             break
     for line in lines[focus_index+1:]:
         parts = line.split() # 以空格分割每一行
-        if len(parts) >= 5:
+        print(parts)
+        print(len(parts))
+        if len(parts) >= 6:
             num = parts[0].replace('.', '')
             focus = parts[1]
             position = parts[2]
             mark = parts[3]
             size = parts[4]
-        print(num, focus, position, mark, size)
-        print(type(num), type(focus), type(position), type(mark), type(size))
-        focus_data.append([num, focus, position, mark, size])
+            treatment = parts[5]
+        # print(num, focus, position, mark, size)
+        # print(type(num), type(focus), type(position), type(mark), type(size))
+        focus_data.append([num, focus, position, mark, size, treatment])
     return patientName, focus_data

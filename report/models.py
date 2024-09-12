@@ -24,6 +24,7 @@ class ColonCaseReport(models.Model):
     position = models.CharField(max_length=2, choices=colon_position, null=True, blank=True) #要寫函式抓
     image = models.ImageField(upload_to='images/', null=True, blank=True) # 圖片路徑設定
     treatment_image = models.ImageField(upload_to='treatment_image/', blank=True) # 圖片路徑設定
+    treatment = models.TextField(max_length=100, null=True, blank=True)
     #indication = models.CharField(max_length=255) #適應症
     #consent = models.TextField() #同意書
     comorbidity = models.CharField(max_length=255, null=True, blank=True) #共病症

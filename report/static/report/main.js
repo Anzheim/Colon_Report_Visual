@@ -503,8 +503,8 @@ function updateFocusLabels(){
 
 for(const index in focuses){
     // console.log(index);
-    const {patient_name, check_date, focus_name, mark, size, position,  image, treatment_image} = focuses[index];
-    console.log(patient_name, check_date, focus_name, mark, size, position, image, treatment_image);
+    const {patient_name, check_date, focus_name, mark, size, position, image, treatment_image, treatment} = focuses[index];
+    console.log(patient_name, check_date, focus_name, mark, size, position, image, treatment_image, treatment);
     patient_Records.push(focuses[index]);
     // add label object
     text[index] = document.createElement( 'div' );
@@ -585,7 +585,8 @@ for(const index in focuses){
                     </div>
                     <div style="text-align: left; padding: 10px;">
                         <img src="/media/`+focuses[index]['treatment_image']+`" alt="Image 2" style="max-width: 100%; display: block; margin: 0 auto;">
-                        <div class="description" style="text-align: center;">這是第二張圖片的描述</div>
+                        <div class="description" style="text-align: center;">處置後的`+focuses[index]['focus_name']+`</div>
+                        <div>處置方式：`+focuses[index]['treatment']+`</div>
                     </div>
                 </div>
                 <button type="button" class="slick-prev slick-arrow">&larr;</button>
