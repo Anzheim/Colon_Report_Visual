@@ -16,6 +16,23 @@
         font-family: "Microsoft JhengHei", Arial, sans-serif; /* 字體 */
         
     }
+    /* 右上角返回主畫面的按鈕樣式 */
+    .back-to-main {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: #9999cc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .back-to-main:hover {
+        background-color: #666699;
+    }
+
     /* 其他自訂樣式 */
     .custom-mt {
         margin-top: 10rem; /* 自定义外边距大小 */
@@ -58,6 +75,9 @@
         font-size: 18px;
     }
 </style>
+
+<!-- 返回主畫面按鈕 -->
+<a href="/" class="back-to-main">返回主畫面</a>
 
 <div class="container custom-mt">
     <div class="card shadow-sm border-0">
