@@ -503,8 +503,8 @@ function updateFocusLabels(){
 
 for(const index in focuses){
     // console.log(index);
-    const {patient_name, check_date, focus_name, focus_diagnosis, mark, size, position,  image, treatment_image} = focuses[index];
-    console.log(patient_name, check_date, focus_name, focus_diagnosis, mark, size, position, image, treatment_image);
+    const {patient_name, check_date, focus_name, mark, size, position,  image, treatment_image} = focuses[index];
+    console.log(patient_name, check_date, focus_name, mark, size, position, image, treatment_image);
     patient_Records.push(focuses[index]);
     // add label object
     text[index] = document.createElement( 'div' );
@@ -579,11 +579,9 @@ for(const index in focuses){
                         <div>病灶名稱：`+focuses[index]['focus_name']+`</div>
                         <div>病人姓名：`+focuses[index]['patient_name']+`</div>
                         <div>檢查日期：`+focuses[index]['check_date']+`</div>
-                        <div>診斷說明：`+focuses[index]['focus_diagnosis']+`</div>
                         <div>標記：`+focuses[index]['mark']+`</div>
                         <div>大小：`+focuses[index]['size']+`</div>
                         <div>病灶位置：`+focuses[index]['position']+`</div>
-                        <div style="margin-top: 10px;">additional note</div>
                     </div>
                     <div style="text-align: left; padding: 10px;">
                         <img src="/media/`+focuses[index]['treatment_image']+`" alt="Image 2" style="max-width: 100%; display: block; margin: 0 auto;">
