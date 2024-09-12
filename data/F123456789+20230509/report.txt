@@ -2,7 +2,5 @@ PatientName Anzhe
 PatientID F123456789
 CheckDate 20230509
 Focus
-1. 息肉 an 良性的 0.3mm
-2. 憩室 r 二級 -
-3. 憩室 r 三級 -
-4. 息肉 s 鋸齒狀 0.2m
+1. 息肉 c 良性的 0.4cm 活檢切除
+2. 混合痔 r 二級 -

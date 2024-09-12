@@ -1,8 +1,9 @@
-PatientName Azura
-PatientID F987654321
+PatientName Anzhe
+PatientID F123456789
 CheckDate 20230609
 Focus
-1. 息肉 tn 良性的 0.4mm
-2. 憩室 r 二級 -
-3. 憩室 r 三級 -
-4. 息肉 s 鋸齒狀 0.3mm
+1. 息肉 tn 良性的、表淺突起型 0.1cm 活檢切除
+2. 息肉 dn 良性的、表淺突起型 0.2cm 活檢切除
+3. 息肉 r 良性的、表淺突起型 0.2cm 活檢切除
+4. 憩室 af 二級 -
+5. 混合痔 r 三級 -

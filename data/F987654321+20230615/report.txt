@@ -1,0 +1,7 @@
+PatientName Azura
+PatientID F987654321
+CheckDate 20230615
+Focus
+1. 息肉 an 良性的、表淺突起型 0.8cm 冷圈套息肉切除術
+2. 腫瘤 r 潰瘍性的 2.5cm 活檢切除
+3. 混合痔 r 二級 -
