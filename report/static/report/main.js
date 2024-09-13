@@ -203,66 +203,66 @@ const mouseControl = (cameraX, cameraY, cameraZ, orbitX, orbitY, orbitZ, maxDist
 };
 
 
-var loader = document.createElement("div");
-loader.className = "loader";
-loader.style.position = "absolute";
-loader.style.top = "0";
-document.body.appendChild(loader);
+// var loader = document.createElement("div");
+// loader.className = "loader";
+// loader.style.position = "absolute";
+// loader.style.top = "0";
+// document.body.appendChild(loader);
 
-var co = document.createElement("div");
-co.style.position = "absolute";
-co.style.top = "0";
-co.textContent = "Connected";
-co.setAttribute('id', 'controller-connected-area');
-//co.id = "controller-connected-area";
-document.body.appendChild(co);
+// var co = document.createElement("div");
+// co.style.position = "absolute";
+// co.style.top = "0";
+// co.textContent = "Connected";
+// co.setAttribute('id', 'controller-connected-area');
+// //co.id = "controller-connected-area";
+// document.body.appendChild(co);
 
-var unco = document.createElement("div");
-unco.style.position = "absolute";
-unco.style.top = "15px";
-unco.textContent = "Controller not connected.Press any button to start"
-unco.setAttribute('id', 'controller-not-connected-area');
-//unco.id = "controller-not-connected-area";
-document.body.appendChild(unco);
+// var unco = document.createElement("div");
+// unco.style.position = "absolute";
+// unco.style.top = "15px";
+// unco.textContent = "Controller not connected.Press any button to start"
+// unco.setAttribute('id', 'controller-not-connected-area');
+// //unco.id = "controller-not-connected-area";
+// document.body.appendChild(unco);
 
-window.addEventListener("gamepadconnected", (event) => {
-  handleConnectDisconnect(event, true);
-});
+// window.addEventListener("gamepadconnected", (event) => {
+//   handleConnectDisconnect(event, true);
+// });
 
-window.addEventListener("gamepaddisconnected", (event) => {
-  handleConnectDisconnect(event, false);
-});
+// window.addEventListener("gamepaddisconnected", (event) => {
+//   handleConnectDisconnect(event, false);
+// });
 
-function handleConnectDisconnect(event, connected) {
-  const controllerAreaNotConnected = document.getElementById(
-    "controller-not-connected-area"
-  );
-  const controllerAreaConnected = document.getElementById(
-    "controller-connected-area"
-  );
+// function handleConnectDisconnect(event, connected) {
+//   const controllerAreaNotConnected = document.getElementById(
+//     "controller-not-connected-area"
+//   );
+//   const controllerAreaConnected = document.getElementById(
+//     "controller-connected-area"
+//   );
 
-    const gamepad = event.gamepad;
-    console.log(gamepad);
+//     const gamepad = event.gamepad;
+//     console.log(gamepad);
 
-  if (connected) {
-    console.log("connected");
-    //controllerAreaNotConnected.element.id.add("hidden");
-    //controllerAreaConnected.element.id.remove("hidden");
-    loader.style.display = "none";
-    controllerAreaNotConnected.style.display = "none";
-    controllerAreaConnected.style.display = "block";
-    controllerAreaConnected.style.color = "white";
-    controllerIndex = event.gamepad.index;
-  } else {
-    console.log("notconnected");
-    //controllerAreaNotConnected.element.id.remove("hidden");
-    //controllerAreaConnected.element.id.add("hidden");
-    loader.style.display = "block";
-    controllerAreaNotConnected.style.display = "block";
-    controllerAreaConnected.style.display = "none";
-    controllerIndex = null;
-  }
-}
+//   if (connected) {
+//     console.log("connected");
+//     //controllerAreaNotConnected.element.id.add("hidden");
+//     //controllerAreaConnected.element.id.remove("hidden");
+//     loader.style.display = "none";
+//     controllerAreaNotConnected.style.display = "none";
+//     controllerAreaConnected.style.display = "block";
+//     controllerAreaConnected.style.color = "white";
+//     controllerIndex = event.gamepad.index;
+//   } else {
+//     console.log("notconnected");
+//     //controllerAreaNotConnected.element.id.remove("hidden");
+//     //controllerAreaConnected.element.id.add("hidden");
+//     loader.style.display = "block";
+//     controllerAreaNotConnected.style.display = "block";
+//     controllerAreaConnected.style.display = "none";
+//     controllerIndex = null;
+//   }
+// }
 
 // ver 2
 // const mouseControl = (cameraX, cameraY, cameraZ, orbitX, orbitY, orbitZ, maxDistance)=>{
@@ -661,16 +661,30 @@ const directionalLight2 = new THREE.DirectionalLight("#ffffff", 2);
 directionalLight2.position.set(-1, -1, -3);
 scene.add(directionalLight2);
 
-const cursor = document.createElement('div');
-cursor.style.width = '20px';
-cursor.style.height = '20px';
-cursor.style.backgroundColor = 'red';
-cursor.style.borderRadius = '50%';
-cursor.style.position = 'absolute';
-cursor.style.pointerEvents = 'none'; // 讓游標不可被點擊
-cursor.style.zIndex = '999';
+const home = document.createElement('img');
+home.src = '/static/home.png';
+home.style.position = 'absolute';
+home.style.width = '50px';
+home.style.height = '50px';
+home.style.top = '10px';
+home.style.left = '10px';
+// home 綁超連結
+home.addEventListener('mousedown', ()=>{
+    window.location.href = '../../../';
+});
 
-labelRenderer.domElement.appendChild(cursor);
+labelRenderer.domElement.appendChild(home);
+
+// const cursor = document.createElement('div');
+// cursor.style.width = '20px';
+// cursor.style.height = '20px';
+// cursor.style.backgroundColor = 'red';
+// cursor.style.borderRadius = '50%';
+// cursor.style.position = 'absolute';
+// cursor.style.pointerEvents = 'none'; // 讓游標不可被點擊
+// cursor.style.zIndex = '999';
+
+// labelRenderer.domElement.appendChild(cursor);
 
 // document.addEventListener('mousemove', (event) => { // 更新遊標位置
 //     cursor.style.left = `${event.clientX}px`;
@@ -679,205 +693,205 @@ labelRenderer.domElement.appendChild(cursor);
 
 
 // 設定 cursor 的初始位置在畫面中央
-let cursorX = window.innerWidth / 2; 
-let cursorY = window.innerHeight / 2;
-cursor.style.left = `${cursorX}px`;
-cursor.style.top = `${cursorY}px`;
+// let cursorX = window.innerWidth / 2; 
+// let cursorY = window.innerHeight / 2;
+// cursor.style.left = `${cursorX}px`;
+// cursor.style.top = `${cursorY}px`;
 
-let controllerIndex = null;
-let leftPressed = false;
-let rightPressed = false;
-let upPressed = false;
-let downPressed = false;
+// let controllerIndex = null;
+// let leftPressed = false;
+// let rightPressed = false;
+// let upPressed = false;
+// let downPressed = false;
 
-let leftMoved = false;
-let rightMoved = false;
-let upMoved = false;
-let downMoved = false;
+// let leftMoved = false;
+// let rightMoved = false;
+// let upMoved = false;
+// let downMoved = false;
 
-let leftRotate = false;
-let rightRotate = false;
-let upRotate = false;
-let downRotate = false;
+// let leftRotate = false;
+// let rightRotate = false;
+// let upRotate = false;
+// let downRotate = false;
 
-let APressed = false;
-let BPressed = false;
-let XPressed = false;
-let YPressed = false;
+// let APressed = false;
+// let BPressed = false;
+// let XPressed = false;
+// let YPressed = false;
 
-let PrevPressed = false;
-let NextPressed = false;
+// let PrevPressed = false;
+// let NextPressed = false;
 
-let prevPrevPressed = 0; // 記錄上一個 PrevPressed 的狀態
-let prevNextPressed = 0; // 記錄上一個 NextPressed 的狀態
+// let prevPrevPressed = 0; // 記錄上一個 PrevPressed 的狀態
+// let prevNextPressed = 0; // 記錄上一個 NextPressed 的狀態
 
-function controllerInput() {
-    if (controllerIndex !== null) {
-        const gamepad = navigator.getGamepads()[controllerIndex];
+// function controllerInput() {
+//     if (controllerIndex !== null) {
+//         const gamepad = navigator.getGamepads()[controllerIndex];
   
-        const buttons = gamepad.buttons;
-        upPressed = buttons[12].pressed ? 1 : 0; // 上鍵
-        downPressed = buttons[13].pressed ? 1 : 0; // 下鍵
-        PrevPressed = buttons[14].pressed ? 1 : 0; // 上一段大腸
-        NextPressed = buttons[15].pressed ? 1 : 0; // 下一段大腸
+//         const buttons = gamepad.buttons;
+//         upPressed = buttons[12].pressed ? 1 : 0; // 上鍵
+//         downPressed = buttons[13].pressed ? 1 : 0; // 下鍵
+//         PrevPressed = buttons[14].pressed ? 1 : 0; // 上一段大腸
+//         NextPressed = buttons[15].pressed ? 1 : 0; // 下一段大腸
     
-        const stickDeadZone = 0.5; // 搖桿靈敏度
-        const leftRightValueLEFT = gamepad.axes[0]; // 左右搖桿，左負右正，範圍-1~1，0為中間，超過0.4才算按下
-        if (leftRightValueLEFT >= stickDeadZone) {
-            rightMoved = true;
-        } else if (leftRightValueLEFT <= -stickDeadZone) {
-            leftMoved = true;
-        }else{
-            leftMoved = false;
-            rightMoved = false;
-        }
+//         const stickDeadZone = 0.5; // 搖桿靈敏度
+//         const leftRightValueLEFT = gamepad.axes[0]; // 左右搖桿，左負右正，範圍-1~1，0為中間，超過0.4才算按下
+//         if (leftRightValueLEFT >= stickDeadZone) {
+//             rightMoved = true;
+//         } else if (leftRightValueLEFT <= -stickDeadZone) {
+//             leftMoved = true;
+//         }else{
+//             leftMoved = false;
+//             rightMoved = false;
+//         }
     
-        const upDownValueLEFT = gamepad.axes[1]; // 上下搖桿，上負下正，範圍-1~1，0為中間，超過0.4才算按下
+//         const upDownValueLEFT = gamepad.axes[1]; // 上下搖桿，上負下正，範圍-1~1，0為中間，超過0.4才算按下
     
-        if (upDownValueLEFT >= stickDeadZone) {
-            downMoved = true;
-        } else if (upDownValueLEFT <= -stickDeadZone) {
-            upMoved = true;
-        } else{
-            upMoved = false;
-            downMoved = false;
-        }
+//         if (upDownValueLEFT >= stickDeadZone) {
+//             downMoved = true;
+//         } else if (upDownValueLEFT <= -stickDeadZone) {
+//             upMoved = true;
+//         } else{
+//             upMoved = false;
+//             downMoved = false;
+//         }
 
-        const rotateY = gamepad.axes[2];
-        const rotateX = gamepad.axes[3];
-        // 右搖桿控制相機旋轉繞x,y軸旋轉
-        if(Math.abs(rotateX) > 0.1 || Math.abs(rotateY) > 0.1){
-            camera.rotation.x += rotateX * Math.PI;
-            camera.rotation.y -= rotateY * Math.PI;
-        }
-        APressed = buttons[0].pressed ? 1 : 0;
-        BPressed = buttons[1].pressed ? 1 : 0;
-        XPressed = buttons[2].pressed ? 1 : 0;
-        YPressed = buttons[3].pressed ? 1 : 0;
+//         const rotateY = gamepad.axes[2];
+//         const rotateX = gamepad.axes[3];
+//         // 右搖桿控制相機旋轉繞x,y軸旋轉
+//         if(Math.abs(rotateX) > 0.1 || Math.abs(rotateY) > 0.1){
+//             camera.rotation.x += rotateX * Math.PI;
+//             camera.rotation.y -= rotateY * Math.PI;
+//         }
+//         APressed = buttons[0].pressed ? 1 : 0;
+//         BPressed = buttons[1].pressed ? 1 : 0;
+//         XPressed = buttons[2].pressed ? 1 : 0;
+//         YPressed = buttons[3].pressed ? 1 : 0;
 
-        leftPressed = buttons[4].pressed ? 1 : 0; // 上一張照片
-        rightPressed = buttons[5].pressed ? 1 : 0; // 下一張照片
+//         leftPressed = buttons[4].pressed ? 1 : 0; // 上一張照片
+//         rightPressed = buttons[5].pressed ? 1 : 0; // 下一張照片
 
-        // 檢查 PrevPressed 是否從按下變為放開
-        if (prevPrevPressed === 1 && PrevPressed === 0) {
-            // 在這裡處理 PrevPressed 放開的邏輯
-            console.log("PrevPressed 按鈕放開");
-            params.previous();
-        }
+//         // 檢查 PrevPressed 是否從按下變為放開
+//         if (prevPrevPressed === 1 && PrevPressed === 0) {
+//             // 在這裡處理 PrevPressed 放開的邏輯
+//             console.log("PrevPressed 按鈕放開");
+//             params.previous();
+//         }
 
-        // 檢查 NextPressed 是否從按下變為放開
-        if (prevNextPressed === 1 && NextPressed === 0) {
-            // 在這裡處理 NextPressed 放開的邏輯
-            console.log("NextPressed 按鈕放開");
-            params.next();
-        }
-        // 更新 prevPrevPressed 和 prevNextPressed 狀態
-        prevPrevPressed = PrevPressed;
-        prevNextPressed = NextPressed;
-    }
-}
+//         // 檢查 NextPressed 是否從按下變為放開
+//         if (prevNextPressed === 1 && NextPressed === 0) {
+//             // 在這裡處理 NextPressed 放開的邏輯
+//             console.log("NextPressed 按鈕放開");
+//             params.next();
+//         }
+//         // 更新 prevPrevPressed 和 prevNextPressed 狀態
+//         prevPrevPressed = PrevPressed;
+//         prevNextPressed = NextPressed;
+//     }
+// }
 
-function moveCursor() {
-    if (upMoved) {
-      // 光標往上移動
-      cursorY -= 6;
-      cursor.style.top = `${cursorY}px`;
-    }
-    if (downMoved) {
-      // 光標往下移動
-      cursorY += 6;
-      cursor.style.top = `${cursorY}px`;
-    }
-    if (leftMoved) {
-      // 光標往左移動
-      cursorX -= 6;
-      cursor.style.left = `${cursorX}px`;
-    }
-    if (rightMoved) {
-      // 光標往右移動  
-      cursorX += 6;
-      cursor.style.left = `${cursorX}px`;
-    }
-    // 如果光標超出畫面範圍，就停在邊界
-    if (cursorX < 0) {
-      cursorX = 0;
-    }else if (cursorX > window.innerWidth-20) {
-        cursorX = window.innerWidth-20;
-    }
-    if (cursorY < 0) {
-        cursorY = 0;
-    }else if (cursorY > window.innerHeight-20) {
-        cursorY = window.innerHeight-20;
-    }
-}
-function buttonpressed() {
-    if (upPressed) { //放大畫面
-        console.log("Zoom in");
-        //模擬滑鼠滾動使相機朝中心點拉近
-        const eventZoomIn = new WheelEvent('wheel', { deltaY: -20 });
-        labelRenderer.domElement.dispatchEvent(eventZoomIn);
-    } 
-    if (downPressed) { //縮小畫面
-        console.log("Zoom out");
-        const eventZoomOut = new WheelEvent('wheel', { deltaY: 20 });
-        labelRenderer.domElement.dispatchEvent(eventZoomOut);
-    }
-    if (leftPressed) {
-        console.log("left")
-        $('.slick-prev').click();
-    }
-    if (rightPressed) {
-        console.log("right");
-        $('.slick-next').click();
-    }
-    //當A被按下時，根據 CursorX, CursorY 的位置來進行網頁點擊label元素
-    if (APressed) {
-        console.log("A");
-        const elements = document.elementsFromPoint(cursorX, cursorY); // 取得游標所在位置的元素
-        console.log(cursorX, cursorY);
-        elements.forEach((element) => { // 對每個元素進行迴圈，element 是點擊位置的每個元素
-            if (element.classList.contains('label') || element.classList.contains('label_of_position')) { // 如果元素有 label 或 label_of_position 這個 class
-                element.dispatchEvent(new Event('pointerdown')); // 觸發元素的 pointerdown 事件
-            }
-        });
-    }
-    if (BPressed) {
-        positionController.setValue(0);
-        camera.up.set(0, 1, 0);
-    }
-    if (XPressed) {
-        console.log("X");
-        // 關閉 Swal 彈窗
-        Swal.close();
-    }
-//     if (YPressed) {
-//         console.log("Y")
-//  }
-}
+// function moveCursor() {
+//     if (upMoved) {
+//       // 光標往上移動
+//       cursorY -= 6;
+//       cursor.style.top = `${cursorY}px`;
+//     }
+//     if (downMoved) {
+//       // 光標往下移動
+//       cursorY += 6;
+//       cursor.style.top = `${cursorY}px`;
+//     }
+//     if (leftMoved) {
+//       // 光標往左移動
+//       cursorX -= 6;
+//       cursor.style.left = `${cursorX}px`;
+//     }
+//     if (rightMoved) {
+//       // 光標往右移動  
+//       cursorX += 6;
+//       cursor.style.left = `${cursorX}px`;
+//     }
+//     // 如果光標超出畫面範圍，就停在邊界
+//     if (cursorX < 0) {
+//       cursorX = 0;
+//     }else if (cursorX > window.innerWidth-20) {
+//         cursorX = window.innerWidth-20;
+//     }
+//     if (cursorY < 0) {
+//         cursorY = 0;
+//     }else if (cursorY > window.innerHeight-20) {
+//         cursorY = window.innerHeight-20;
+//     }
+// }
+// function buttonpressed() {
+//     if (upPressed) { //放大畫面
+//         console.log("Zoom in");
+//         //模擬滑鼠滾動使相機朝中心點拉近
+//         const eventZoomIn = new WheelEvent('wheel', { deltaY: -20 });
+//         labelRenderer.domElement.dispatchEvent(eventZoomIn);
+//     } 
+//     if (downPressed) { //縮小畫面
+//         console.log("Zoom out");
+//         const eventZoomOut = new WheelEvent('wheel', { deltaY: 20 });
+//         labelRenderer.domElement.dispatchEvent(eventZoomOut);
+//     }
+//     if (leftPressed) {
+//         console.log("left")
+//         $('.slick-prev').click();
+//     }
+//     if (rightPressed) {
+//         console.log("right");
+//         $('.slick-next').click();
+//     }
+//     //當A被按下時，根據 CursorX, CursorY 的位置來進行網頁點擊label元素
+//     if (APressed) {
+//         console.log("A");
+//         const elements = document.elementsFromPoint(cursorX, cursorY); // 取得游標所在位置的元素
+//         console.log(cursorX, cursorY);
+//         elements.forEach((element) => { // 對每個元素進行迴圈，element 是點擊位置的每個元素
+//             if (element.classList.contains('label') || element.classList.contains('label_of_position')) { // 如果元素有 label 或 label_of_position 這個 class
+//                 element.dispatchEvent(new Event('pointerdown')); // 觸發元素的 pointerdown 事件
+//             }
+//         });
+//     }
+//     if (BPressed) {
+//         positionController.setValue(0);
+//         camera.up.set(0, 1, 0);
+//     }
+//     if (XPressed) {
+//         console.log("X");
+//         // 關閉 Swal 彈窗
+//         Swal.close();
+//     }
+// //     if (YPressed) {
+// //         console.log("Y")
+// //  }
+// }
 
-const rotationSpeed = 0.5;
+// const rotationSpeed = 0.5;
 
-function DragControls() {
-    if(leftRotate){
-        console.log("leftRotate");
-    }
-    if(rightRotate){
-        console.log("rightRotate");
-    }
-    if(upRotate){
-        console.log("upRotate");
-    }
-    if(downRotate){
-        console.log("downRotate");
-    }
-}
+// function DragControls() {
+//     if(leftRotate){
+//         console.log("leftRotate");
+//     }
+//     if(rightRotate){
+//         console.log("rightRotate");
+//     }
+//     if(upRotate){
+//         console.log("upRotate");
+//     }
+//     if(downRotate){
+//         console.log("downRotate");
+//     }
+// }
 
 const animate = ()=>{
     controls.update();
-    controllerInput();
-    moveCursor();
-    buttonpressed();
-    DragControls();
+    // controllerInput();
+    // moveCursor();
+    // buttonpressed();
+    // DragControls();
     renderer.render(scene, camera);
     labelRenderer.render( scene, camera );
     requestAnimationFrame(animate);
