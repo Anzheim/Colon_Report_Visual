@@ -361,10 +361,10 @@ for(const index in position){
                 positionController.setValue(7);
                 break;
             case 'transverse_near':
-                positionController.setValue(5);
+                positionController.setValue(4);
                 break;
             case 'transverse_far':
-                positionController.setValue(4);
+                positionController.setValue(5);
                 break;
             case 'cecum':
                 positionController.setValue(1);
