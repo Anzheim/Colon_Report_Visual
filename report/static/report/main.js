@@ -615,12 +615,37 @@ for(const index in focuses){
 const gltfLoader = new GLTFLoader();
 gltfLoader.load(
   '/static/full_colon.glb',
-  gltf => {
+  (gltf) => {
     const model = gltf.scene;
-    model.traverse((child)=>{
-        if(child.isMesh){
+    
+    model.traverse((child) => {
+        const colorTexture = new THREE.TextureLoader().load('/static/color.jpg', (texture) => {
+            // 设置纹理重复属性
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set(1000, 1000); // 修改这两个值以控制纹理的重复次数
+        });
+        colorTexture.encoding = THREE.sRGBEncoding;
+        
+        const heightTexture = new THREE.TextureLoader().load('/static/height.png');
+        const aoTexture = new THREE.TextureLoader().load('/static/ao.jpg');
+        const normal_directxTexture = new THREE.TextureLoader().load('/static/normal_directx.png');
+        const normal_openglTexture = new THREE.TextureLoader().load('/static/normal_opengl.png');
+        const roughnessTexture = new THREE.TextureLoader().load('/static/roughness.jpg');
+        
+        if (child.isMesh) { 
             child.castShadow = true;
-            const material = new THREE.MeshStandardMaterial({color:0xFF9EAA});
+            const material = new THREE.MeshStandardMaterial({ 
+                color:0xFF9EAA,
+                map: colorTexture,
+                side: THREE.DoubleSide,
+                displacementMap: heightTexture,
+                displacementScale: 0.1,
+                aoMap: aoTexture,
+                normalMap: normal_openglTexture,
+                roughnessMap: roughnessTexture,
+                roughness: 1, 
+            });
             child.material = material;
         }
     });
