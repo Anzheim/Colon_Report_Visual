@@ -1,7 +1,7 @@
 # 運行環境
 - Windows Operation System (Virtual Environment)
 # 軟體工具
-- Python Web Framework
+- Django 4.2.12
 - Three.js 3D 頁面控制
 - SweetAlert2 彈出式視窗
 - Slick.js 圖片滑動
